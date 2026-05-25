@@ -1,0 +1,79 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sensor Fault Detection</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Upload Form Card -->
+    <form class="upload-form">
+
+      <!-- Title -->
+      <h1>Sensor Fault Detection</h1>
+
+      <!-- Description -->
+      <p class="description">
+        Upload your CSV dataset for Machine Learning prediction and fault analysis.
+      </p>
+
+      <!-- Drag & Drop Area -->
+      <div class="drag-area">
+
+        <div class="icon">📁</div>
+
+        <h3>Drag & Drop CSV File</h3>
+
+        <span>OR</span>
+
+        <!-- File Input -->
+        <input type="file" id="csvFile" accept=".csv" required hidden>
+
+        <!-- Browse Button -->
+        <label for="csvFile" class="browse-btn">
+          Browse CSV
+        </label>
+
+        <p class="file-text">
+          Only CSV files are supported
+        </p>
+
+      </div>
+
+      <!-- Upload Button -->
+      <button type="submit" class="upload-btn">
+        Upload & Predict
+      </button>
+
+      <!-- Success Message -->
+      <div class="message success">
+        ✅ File uploaded successfully!
+      </div>
+
+      <!-- Error Message -->
+      <div class="message error">
+        ❌ Please upload a valid CSV file.
+      </div>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

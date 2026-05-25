@@ -1,0 +1,188 @@
+/* style.css */
+
+/* Reset Default Styling */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body{
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#0f172a,#1e293b,#312e81);
+  padding: 20px;
+}
+
+/* Container */
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Upload Form Card */
+.upload-form{
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 25px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  color: white;
+}
+
+/* Title */
+.upload-form h1{
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* Description */
+.description{
+  font-size: 0.95rem;
+  color: #d1d5db;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Drag Area */
+.drag-area{
+  border: 2px dashed rgba(255,255,255,0.3);
+  border-radius: 18px;
+  padding: 35px 20px;
+  background: rgba(255,255,255,0.03);
+  transition: 0.3s ease;
+}
+
+/* Hover Effect */
+.drag-area:hover{
+  border-color: #38bdf8;
+  background: rgba(56,189,248,0.08);
+  transform: translateY(-3px);
+}
+
+/* Icon */
+.icon{
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+/* Heading */
+.drag-area h3{
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* OR Text */
+.drag-area span{
+  display: block;
+  margin: 15px 0;
+  color: #cbd5e1;
+}
+
+/* Browse Button */
+.browse-btn{
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#06b6d4,#3b82f6);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Browse Hover */
+.browse-btn:hover{
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+}
+
+/* File Text */
+.file-text{
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+/* Upload Button */
+.upload-btn{
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Upload Hover */
+.upload-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(34,197,94,0.4);
+}
+
+/* Messages */
+.message{
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+/* Success Message */
+.success{
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.4);
+  color: #86efac;
+}
+
+/* Error Message */
+.error{
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.4);
+  color: #fca5a5;
+}
+
+/* Responsive Design */
+@media(max-width:600px){
+
+  .upload-form{
+    padding: 30px 20px;
+  }
+
+  .upload-form h1{
+    font-size: 1.6rem;
+  }
+
+  .description{
+    font-size: 0.9rem;
+  }
+
+  .drag-area{
+    padding: 25px 15px;
+  }
+
+  .icon{
+    font-size: 50px;
+  }
+
+  .upload-btn{
+    font-size: 0.95rem;
+  }
+}
