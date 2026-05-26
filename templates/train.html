@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Train Model</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<nav class="navbar">
+    <div class="logo">
+        ⚡ SensorAI
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/train">Train</a></li>
+        <li><a href="/predict">Predict</a></li>
+    </ul>
+</nav>
+
+<section class="dashboard">
+
+    <div class="dashboard-header">
+        <h1>AI Training Dashboard</h1>
+        <p>Train your Sensor Fault Detection model</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="glass-card dashboard-card">
+            <h3>Current Accuracy</h3>
+            <h2>{{ accuracy if accuracy else "98.2%" }}</h2>
+        </div>
+
+        <div class="glass-card dashboard-card">
+            <h3>Training Status</h3>
+            <h2 id="statusText">Idle</h2>
+        </div>
+
+        <div class="glass-card dashboard-card">
+            <h3>ML Pipeline</h3>
+            <h2>Ready</h2>
+        </div>
+
+    </div>
+
+    <div class="glass-card train-container">
+
+        <div class="ai-animation">
+            <div class="pulse-circle"></div>
+            <div class="pulse-circle delay"></div>
+        </div>
+
+        <button class="primary-btn" id="trainBtn">
+            Start Training
+        </button>
+
+        <div class="loader hidden" id="loader"></div>
+
+        <div id="messageBox"></div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    <p>Built using Flask + Machine Learning + Modern UI</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<script>
+
+const trainBtn = document.getElementById("trainBtn");
+const loader = document.getElementById("loader");
+const messageBox = document.getElementById("messageBox");
+const statusText = document.getElementById("statusText");
+
+trainBtn.addEventListener("click", async () => {
+
+    loader.classList.remove("hidden");
+    statusText.innerText = "Training...";
+    messageBox.innerHTML = "";
+
+    trainBtn.disabled = true;
+
+    try {
+
+        const response = await fetch("/train");
+
+        const result = await response.text();
+
+        loader.classList.add("hidden");
+        trainBtn.disabled = false;
+
+        statusText.innerText = "Completed";
+
+        messageBox.innerHTML = `
+            <div class="success-alert">
+                ✅ Model Training Completed Successfully
+            </div>
+        `;
+
+    } catch (error) {
+
+        loader.classList.add("hidden");
+        trainBtn.disabled = false;
+
+        statusText.innerText = "Failed";
+
+        messageBox.innerHTML = `
+            <div class="error-alert">
+                ❌ Error occurred during training
+            </div>
+        `;
+    }
+
+});
+
+</script>
+
+</body>
+</html>

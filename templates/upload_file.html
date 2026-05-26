@@ -1,79 +1,240 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sensor Fault Detection</title>
 
-  <!-- CSS File -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Predict Sensor Data</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
 
-  <!-- Main Container -->
-  <div class="container">
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
 
-    <!-- Upload Form Card -->
-    <form class="upload-form">
+<nav class="navbar">
+    <div class="logo">
+        ⚡ SensorAI
+    </div>
 
-      <!-- Title -->
-      <h1>Sensor Fault Detection</h1>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/train">Train</a></li>
+        <li><a href="/predict">Predict</a></li>
+    </ul>
+</nav>
 
-      <!-- Description -->
-      <p class="description">
-        Upload your CSV dataset for Machine Learning prediction and fault analysis.
-      </p>
+<section class="upload-section">
 
-      <!-- Drag & Drop Area -->
-      <div class="drag-area">
+    <div class="glass-card upload-card">
 
-        <div class="icon">📁</div>
+        <h1>Upload Sensor CSV File</h1>
 
-        <h3>Drag & Drop CSV File</h3>
-
-        <span>OR</span>
-
-        <!-- File Input -->
-        <input type="file" id="csvFile" accept=".csv" required hidden>
-
-        <!-- Browse Button -->
-        <label for="csvFile" class="browse-btn">
-          Browse CSV
-        </label>
-
-        <p class="file-text">
-          Only CSV files are supported
+        <p>
+            Upload your sensor test dataset and generate predictions instantly.
         </p>
 
-      </div>
+        <form
+            id="uploadForm"
+            enctype="multipart/form-data"
+        >
 
-      <!-- Upload Button -->
-      <button type="submit" class="upload-btn">
-        Upload & Predict
-      </button>
+            <div class="drop-zone" id="dropZone">
 
-      <!-- Success Message -->
-      <div class="message success">
-        ✅ File uploaded successfully!
-      </div>
+                <input
+                    type="file"
+                    name="file"
+                    id="fileInput"
+                    accept=".csv"
+                    hidden
+                >
 
-      <!-- Error Message -->
-      <div class="message error">
-        ❌ Please upload a valid CSV file.
-      </div>
+                <div class="upload-content">
 
-    </form>
+                    <div class="upload-icon">📁</div>
 
-  </div>
+                    <h3>Drag & Drop CSV File</h3>
+
+                    <p>or click to browse</p>
+
+                    <span id="fileName">
+                        No file selected
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="primary-btn">
+                Predict Now
+            </button>
+
+        </form>
+
+        <div class="loader hidden" id="loader"></div>
+
+        <div id="messageBox"></div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    <p>AI Powered Sensor Fault Prediction System</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<script>
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("fileName");
+const uploadForm = document.getElementById("uploadForm");
+const loader = document.getElementById("loader");
+const messageBox = document.getElementById("messageBox");
+
+dropZone.addEventListener("click", () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener("change", () => {
+
+    if (fileInput.files.length > 0) {
+
+        const file = fileInput.files[0];
+
+        if (!file.name.endsWith(".csv")) {
+
+            messageBox.innerHTML = `
+                <div class="error-alert">
+                    ❌ Please upload only CSV files
+                </div>
+            `;
+
+            fileInput.value = "";
+            return;
+        }
+
+        fileName.innerText = file.name;
+    }
+
+});
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop", (e) => {
+
+    e.preventDefault();
+
+    dropZone.classList.remove("dragover");
+
+    const files = e.dataTransfer.files;
+
+    if (files.length > 0) {
+
+        const file = files[0];
+
+        if (!file.name.endsWith(".csv")) {
+
+            messageBox.innerHTML = `
+                <div class="error-alert">
+                    ❌ Only CSV files are allowed
+                </div>
+            `;
+
+            return;
+        }
+
+        fileInput.files = files;
+
+        fileName.innerText = file.name;
+    }
+
+});
+
+uploadForm.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const file = fileInput.files[0];
+
+    if (!file) {
+
+        messageBox.innerHTML = `
+            <div class="error-alert">
+                ❌ Please select a CSV file
+            </div>
+        `;
+
+        return;
+    }
+
+    loader.classList.remove("hidden");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+
+        const response = await fetch("/predict", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error("Prediction failed");
+        }
+
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+
+        a.href = url;
+
+        a.download = "prediction_output.csv";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        loader.classList.add("hidden");
+
+        messageBox.innerHTML = `
+            <div class="success-alert">
+                ✅ Prediction Completed Successfully
+            </div>
+        `;
+
+    } catch (error) {
+
+        loader.classList.add("hidden");
+
+        messageBox.innerHTML = `
+            <div class="error-alert">
+                ❌ Error while predicting file
+            </div>
+        `;
+    }
+
+});
+
+</script>
 
 </body>
 </html>

@@ -14,8 +14,8 @@ from flask import request
 class PredictionPipelineConfig:
      prediction_output_dirname:str='predictions'
      prediction_file_name :str = 'prediction_file.csv'
-     model_file_path:str =os.path.join(DATA_DIR,'model.pkl')
-     processor_path : str = os.path.join(DATA_DIR,'preprocessor.pkl')
+     model_file_path:str =os.path.join(ARTIFACTS_DIR,'model.pkl')
+     processor_path : str = os.path.join(ARTIFACTS_DIR,'preprocessor.pkl')
      prediction_file_path :str = os.path.join(prediction_output_dirname,prediction_file_name)
 
 
@@ -23,11 +23,11 @@ class PredictionPipeline:
     def __init__(self,request:request):
           self.request = request
           self.utils = MainUtils()
-          self.prediction_pipeline_config  =  PredictionPipelineConfig
+          self.prediction_pipeline_config  =  PredictionPipelineConfig()
 
     def save_input_files(self):
          try:
-             pred_file_input_dir = 'prediction_artificats'
+             pred_file_input_dir = 'prediction_artifacts'
 
              os.makedirs(pred_file_input_dir,exist_ok=True)
 

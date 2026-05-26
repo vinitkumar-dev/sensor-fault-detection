@@ -12,7 +12,7 @@ from src.constant import *
 from src.exception import CustomException
 from src.logger import logging
 from src.utils.main_utils import MainUtils
-from utils.main_utils import MainUtils
+
 
 @dataclass
 class DataIngestionConfig:
@@ -68,12 +68,12 @@ class DataIngestion:
         except Exception as e:
              raise CustomException(e,sys)
         
-        def initiate_data_ingestion(self)->Path:
+    def initiate_data_ingestion(self)->Path:
              
             try:
                  logging.info('Entered initiated_Data_ingestion method of data_integration class')
 
-                 feature_store_file_path = self.export_data_into_feature_store_file_path
+                 feature_store_file_path = self.export_data_into_feature_store_file_path()
 
                  logging.info('got the data from  mongodb')
                  logging.info('exited initiate_data_ingestion methods od data ingestion class')

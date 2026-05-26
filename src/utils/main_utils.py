@@ -47,16 +47,29 @@ class MainUtils:
             raise CustomException(e, sys) from e
 
     @staticmethod
-    def load_object(file_path:str)->None:
-        logging.info('Entered the load_object method of MainUtils class')
+    def load_object(file_path: str) -> object:
+        logging.info("Entered the load_object method of MainUtils class")
+
 
         try:
-            with open(file_path,'rb') as file_obj:
+            with open(file_path, "rb") as file_obj:
                 obj = pickle.load(file_obj)
 
-            logging.info('Excited the load_object method of MainUtils class')
+
+            logging.info("Exited the load_object method of MainUtils class")
+
 
             return obj
-            
+
+
         except Exception as e:
             raise CustomException(e, sys) from e
+   
+    @staticmethod    
+    def load_object(file_path):
+        try:
+            with open(file_path,'rb') as file_obj:
+                return pickle.load(file_obj)
+        except Exception as e:
+            logging.info('Exception Occured in load_object function utils')
+            raise CustomException(e,sys)
