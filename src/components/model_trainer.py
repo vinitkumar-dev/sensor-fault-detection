@@ -101,9 +101,6 @@ class ModelTrainer:
                     y_test: np.array):
         try:
            
-             
-
-
             model_report: dict = self.evaluate_models(
                  x_train =  x_train,
                  y_train = y_train,
@@ -179,12 +176,6 @@ class ModelTrainer:
 
 
 
-
-
-
-
-
-
     def initiate_model_trainer(self, train_array, test_array):
         try:
             logging.info(f"Splitting training and testing input and target feature")
@@ -197,21 +188,7 @@ class ModelTrainer:
                 test_array[:, -1],
             )
 
-
-           
-
-
             logging.info(f"Extracting model config file path")
-
-
-
-
-           
-
-
-
-
-
 
             logging.info(f"Extracting model config file path")
 
@@ -230,14 +207,7 @@ class ModelTrainer:
                 list(model_report.values()).index(best_model_score)
             ]
 
-
-
-
             best_model = self.models[best_model_name]
-
-
-
-
             best_model = self.finetune_best_model(
                 best_model_name= best_model_name,
                 best_model_object= best_model,
@@ -252,40 +222,23 @@ class ModelTrainer:
            
             print(f"best model name {best_model_name} and score: {best_model_score}")
 
-
-
-
             if best_model_score < 0.5:
                 raise Exception("No best model found with an accuracy greater than the threshold 0.6")
            
             logging.info(f"Best found model on both training and testing dataset")
 
-
- 
-       
-
-
             logging.info(
                 f"Saving model at path: {self.model_trainer_config.trained_model_path}"
             )
 
-
             os.makedirs(os.path.dirname(self.model_trainer_config.trained_model_path), exist_ok=True)
-
 
             self.utils.save_object(
                 file_path=self.model_trainer_config.trained_model_path,
                 obj=best_model
             )
            
-            return self.model_trainer_config.trained_model_path
-
-
-           
-
-
-           
-
-
+            return best_model_score
+        
         except Exception as e:
             raise CustomException(e, sys)

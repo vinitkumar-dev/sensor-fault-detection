@@ -22,7 +22,7 @@ def train_route():
     try:
         training_pipeline = TrainingPipeline()
 
-        accuracy = training_pipeline.run_pipeline()
+        accuracy = training_pipeline.run_pipeline()*100
 
         return render_template(
             'train.html',
