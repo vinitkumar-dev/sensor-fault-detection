@@ -21,16 +21,12 @@ def home():
 def train_route():
     try:
         training_pipeline = TrainingPipeline()
-
-        accuracy = training_pipeline.run_pipeline()*100
-
-        return render_template(
-            'train.html',
-            accuracy=accuracy
-        )
+        accuracy = training_pipeline.run_pipeline() * 100
+        return render_template('train.html', accuracy=accuracy)
 
     except Exception as e:
-        raise CustomException(e,sys)
+        import traceback
+        return f"<pre>{traceback.format_exc()}</pre>"
 
 @app.route('/predict',methods = ['POST','GET'])
 def upload():
