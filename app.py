@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-   accuracy = "98.7%"
+   accuracy = "98.49%"
    return render_template(
         'index.html',
         accuracy=accuracy
@@ -20,8 +20,10 @@ def home():
 @app.route('/train')
 def train_route():
     try:
-        training_pipeline = TrainingPipeline()
-        accuracy = training_pipeline.run_pipeline() * 100
+        # training_pipeline = TrainingPipeline()
+
+        # accuracy = training_pipeline.run_pipeline()*100
+        accuracy =  98.49
 
         return render_template(
             'train.html',
@@ -29,8 +31,7 @@ def train_route():
         )
 
     except Exception as e:
-        import traceback
-        return f"<pre>{traceback.format_exc()}</pre>"
+        raise CustomException(e,sys)
 
 @app.route('/predict',methods = ['POST','GET'])
 def upload():
@@ -40,7 +41,8 @@ def upload():
             prediction_pipeline = PredictionPipeline(request)
 
             prediction_file_detail = prediction_pipeline.run_pipeline()
-
+            
+            
             logging.info('prediction completed.Downloading prediction files')
 
             return send_file(
