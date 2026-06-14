@@ -1,51 +1,48 @@
-# Fault Detection System
+🚨 Fault Detection System
+🌐 Live Demo
 
-## Overview
-This project is a Machine Learning based Fault Detection System that predicts whether a system, machine, or sensor is faulty or not using input data.
+👉 https://sensor-fault-detection-1-51br.onrender.com
 
-The main goal of this project is to build an end-to-end ML pipeline with proper industry-level project structure.
+📌 Overview
 
----
+This project is an end-to-end Machine Learning system for detecting faults in sensors or industrial systems based on input data.
 
-## Features
-- Data Ingestion
-- Data Validation
-- Data Transformation
-- Model Training
-- Model Evaluation
-- Prediction Pipeline
-- Logging and Exception Handling
-- Modular Coding Structure
+It predicts whether a machine/sensor is faulty or healthy, and demonstrates a complete ML pipeline with production-ready project structure.
 
----
-
-## Technologies Used
-- Python
-- NumPy
-- Pandas
-- Scikit-learn
-- Matplotlib
-- Seaborn
-- XGBoost
-
----
-
-## Project Structure
-
-```bash
+⚡ Features
+Data Ingestion pipeline
+Data Validation
+Data Transformation
+Model Training using multiple algorithms
+Model Evaluation & selection of best model
+Prediction pipeline (real-time inference)
+Modular and scalable code structure
+Logging and custom exception handling
+🧠 Technologies Used
+Python
+NumPy
+Pandas
+Scikit-learn
+XGBoost
+Matplotlib
+Seaborn
+Flask (for deployment)
+Render (for hosting)
+🏗️ Project Structure
 fault_detection/
 │
-├── notebook/
-├── src/
-│   ├── components/
-│   ├── pipeline/
-│   ├── exception.py
-│   ├── logger.py
-│   └── utils.py
+├── notebook/               # Experiments and EDA
+├── src/                    # Core source code
+│   ├── components/         # ML pipeline components
+│   ├── pipeline/           # Training & prediction pipeline
+│   ├── exception.py        # Custom exception handling
+│   ├── logger.py           # Logging system
+│   └── utils.py            # Helper functions
 │
-├── logs/
-├── artifacts/
+├── artifacts/              # Saved models & outputs
+├── logs/                   # Log files
 ├── requirements.txt
 ├── setup.py
+├── app.py                  # Flask application
 ├── README.md
 └── .gitignore
