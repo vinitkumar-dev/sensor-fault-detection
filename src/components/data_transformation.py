@@ -124,7 +124,7 @@ class DataTransformation:
 
             logging.info("Splitting input and target features")
 
-            X = dataframe.drop(columns=[TARGET_COLUMN], axis=1)
+            X = dataframe.drop([TARGET_COLUMN], axis=1)
 
             y = dataframe[TARGET_COLUMN]
 

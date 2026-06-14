@@ -41,7 +41,7 @@ class MainUtils:
             with open(file_path,'wb') as file_obj:
                 pickle.dump(obj,file_obj)
 
-            logging.info('Excited the save_object method of MainUtils class')
+            logging.info('Exited the save_object method of MainUtils class')
 
         except Exception as e:
             raise CustomException(e, sys) from e
@@ -56,10 +56,10 @@ class MainUtils:
                 obj = pickle.load(file_obj)
 
 
-            logging.info("Exited the load_object method of MainUtils class")
+                logging.info("Exited the load_object method of MainUtils class")
 
 
-            return obj
+                return obj
 
 
         except Exception as e:

@@ -220,3 +220,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+logs/
+notebooks/
+predictions/
+prediction_artifacts/
+venv/
+
+config/
+
+upload.py
