@@ -16,6 +16,7 @@ dnspython==2.2.1
 executing==2.2.1
 Flask==2.2.3
 fonttools==4.63.0
+gunicorn==26.0.0
 h11==0.16.0
 idna==3.18
 imbalanced-learn==0.14.2
