@@ -1,7 +1,8 @@
 #ka use Git ko batane ke liye hota hai ki kaunsi files/folders GitHub par upload nahi karni.
 venv/
 
-
+notebooks/
+logs/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
