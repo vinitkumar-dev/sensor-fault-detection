@@ -147,8 +147,10 @@ class ModelTrainer:
 
             return best_model_score
         
-        except  Exception as e:
-            raise CustomException(e,sys)
+        except Exception as e:
+            import traceback
+            print(traceback.format_exc())
+            raise e
         
 
 
